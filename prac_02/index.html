@@ -872,7 +872,7 @@
                 console.log('\n📊 All Class Probabilities:');
                 console.log('-'.repeat(60));
                
-                
+                // Create a sorted array of predictions for better visualization
                 const predictions = [];
                 for (let i = 0; i < 10; i++) {
                     predictions.push({
@@ -882,13 +882,13 @@
                     });
                 }
                
-                
+                // Sort by probability (highest first)
                 predictions.sort((a, b) => b.probability - a.probability);
                
-                
+                // Display in console as a table
                 console.table(predictions);
                
-                
+                // Also display as a formatted list
                 console.log('\n📋 Detailed Breakdown (sorted by confidence):');
                 predictions.forEach((pred, index) => {
                     const bar = '█'.repeat(Math.round(pred.probability * 50));
@@ -901,7 +901,7 @@
                 console.log(Array.from(probabilities).map((p, i) => `${i}: ${p.toFixed(6)}`).join(', '));
                 console.log('='.repeat(60) + '\n');
 
-                
+                // Display results on UI
                 document.getElementById('predictionResult').style.display = 'block';
                 document.getElementById('predictedDigit').textContent = predictedClass[0];
                 document.getElementById('predictionConfidence').textContent =
@@ -922,7 +922,7 @@
                     predictionsGrid.appendChild(barDiv);
                 }
 
-               
+                // Cleanup
                 tensor.dispose();
                 prediction.dispose();
 
@@ -933,7 +933,7 @@
             }
         }
 
-       
+        // Initialize on page load
         window.onload = () => {
             initCanvas();
             console.log('TensorFlow.js version:', tf.version.tfjs);
