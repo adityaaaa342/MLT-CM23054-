@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MobileNet V1 vs V2 Comparison</title>
+
+    <!-- TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0"></script>
+
+    <!-- MobileNet -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            padding: 20px;
+            text-align: center;
+        }
+
+        img {
+            width: 300px;
+            border: 2px solid black;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .box {
+            background: white;
+            padding: 15px;
+            width: 300px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Comparison: MobileNet V1 vs MobileNet V2</h2>
+
+<img id="img"
+     src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Pug_600.jpg"
+     crossorigin="anonymous">
+
+<div class="container">
+    <div class="box">
+        <h3>MobileNet V1</h3>
+        <ol id="v1">
+            <li>Loading...</li>
+        </ol>
+    </div>
+
+    <div class="box">
+        <h3>MobileNet V2</h3>
+        <ol id="v2">
+            <li>Loading...</li>
+        </ol>
+    </div>
+</div>
+
+<script>
+async function compare() {
+
+    const img = document.getElementById("img");
+    if (!img.complete) {
+        await new Promise(resolve => img.onload = resolve);
+    }
+
+    // Load MobileNet V1
+    const modelV1 = await mobilenet.load({
+        version: 1,
+        alpha: 1.0
+    });
+
+    // Load MobileNet V2
+    const modelV2 = await mobilenet.load({
+        version: 2,
+        alpha: 1.0
+    });
+
+    // Predict with V1
+    const predV1 = await modelV1.classify(img);
+    const v1List = document.getElementById("v1");
+    v1List.innerHTML = "";
+    predV1.slice(0,3).forEach(p => {
+        const li = document.createElement("li");
+        li.textContent = `${p.className} (${(p.probability*100).toFixed(2)}%)`;
+        v1List.appendChild(li);
+    });
+
+    // Predict with V2
+    const predV2 = await modelV2.classify(img);
+    const v2List = document.getElementById("v2");
+    v2List.innerHTML = "";
+    predV2.slice(0,3).forEach(p => {
+        const li = document.createElement("li");
+        li.textContent = `${p.className} (${(p.probability*100).toFixed(2)}%)`;
+        v2List.appendChild(li);
+    });
+}
+
+compare();
+</script>
+
+</body>
+</html>

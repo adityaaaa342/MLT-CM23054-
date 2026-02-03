@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Learning Rate Experiment</title>
+
+    <!-- TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            padding: 20px;
+        }
+        .box {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+        }
+        pre {
+            background: #eee;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Effect of Learning Rate on Convergence</h2>
+
+<div class="box">
+    <h3>Learning Rate = 0.001 (Very Small)</h3>
+    <pre id="lr1"></pre>
+</div>
+
+<div class="box">
+    <h3>Learning Rate = 0.01 (Good)</h3>
+    <pre id="lr2"></pre>
+</div>
+
+<div class="box">
+    <h3>Learning Rate = 0.1 (Too Large)</h3>
+    <pre id="lr3"></pre>
+</div>
+
+<script>
+// STEP 1: Create simple synthetic data (y = 2x + 1)
+let x = [];
+let y = [];
+
+for (let i = 0; i < 20; i++) {
+    x.push(i);
+    y.push(2 * i + 1);
+}
+
+let xTensor = tf.tensor1d(x);
+let yTensor = tf.tensor1d(y);
+
+// STEP 2: Function to train model with given learning rate
+async function trainWithLR(learningRate, outputId) {
+
+    let model = tf.sequential();
+    model.add(tf.layers.dense({ units: 1, inputShape: [1] }));
+
+    model.compile({
+        optimizer: tf.train.sgd(learningRate),
+        loss: 'meanSquaredError'
+    });
+
+    // Train model
+    let history = await model.fit(xTensor, yTensor, {
+        epochs: 50,
+        verbose: 0
+    });
+
+    // Final loss value
+    let finalLoss = history.history.loss.pop();
+
+    document.getElementById(outputId).textContent =
+        "Final Loss after training: " + finalLoss.toFixed(4);
+}
+
+// STEP 3: Run experiments
+trainWithLR(0.001, "lr1");
+trainWithLR(0.01, "lr2");
+trainWithLR(0.1, "lr3");
+</script>
+
+</body>
+</html>

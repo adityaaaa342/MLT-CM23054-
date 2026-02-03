@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TensorFlow.js – Tensor Creation</title>
+
+    <!-- TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .box {
+            background: #ffffff;
+            padding: 20px;
+            margin: 15px auto;
+            max-width: 500px;
+            border-radius: 8px;
+        }
+
+        pre {
+            background: #eeeeee;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>TensorFlow.js – Tensor Creation</h1>
+
+<div class="box">
+    <h2>Scalar Tensor (0D)</h2>
+    <pre id="scalar"></pre>
+</div>
+
+<div class="box">
+    <h2>Vector Tensor (1D)</h2>
+    <pre id="vector"></pre>
+</div>
+
+<div class="box">
+    <h2>Matrix Tensor (2D)</h2>
+    <pre id="matrix"></pre>
+</div>
+
+<script>
+    // Create tensors
+    const scalar = tf.scalar(10);
+    const vector = tf.tensor1d([1, 2, 3, 4, 5]);
+    const matrix = tf.tensor2d([
+        [1, 2, 3],
+        [4, 5, 6]
+    ]);
+
+    // Display scalar
+    document.getElementById("scalar").textContent = scalar.arraySync();
+
+    // Display vector
+    document.getElementById("vector").textContent =
+        vector.arraySync().join(", ");
+
+    // Display matrix row by row
+    const matrixData = matrix.arraySync();
+    let matrixText = "";
+
+    matrixData.forEach(row => {
+        matrixText += row.join("  ") + "\n";
+    });
+
+    document.getElementById("matrix").textContent = matrixText;
+</script>
+
+</body>
+</html>
+
+
+

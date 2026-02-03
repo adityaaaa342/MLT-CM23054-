@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MobileNet – Multiple Image Classification Test</title>
+
+    <!-- TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0"></script>
+
+    <!-- MobileNet -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        img {
+            width: 150px;
+            border: 1px solid black;
+        }
+
+        .result {
+            font-size: 15px;
+        }
+
+        .correct {
+            color: green;
+            font-weight: bold;
+        }
+
+        .wrong {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Testing MobileNet on 5 Different Images</h2>
+
+<div id="results"></div>
+
+<script>
+const testImages = [
+    {
+        src: "https://upload.wikimedia.org/wikipedia/commons/9/9a/Pug_600.jpg",
+        label: "dog"
+    },
+    {
+        src: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Cat03.jpg",
+        label: "cat"
+    },
+    {
+        src: "https://upload.wikimedia.org/wikipedia/commons/5/5e/Toyota_Corolla_E170.jpg",
+        label: "car"
+    },
+    {
+        src: "https://upload.wikimedia.org/wikipedia/commons/0/02/GoldenGateBridge-001.jpg",
+        label: "bridge"
+    },
+    {
+        src: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Push_van_cathedral_pisa.jpg",
+        label: "tower"
+    }
+];
+
+async function testModel() {
+    const model = await mobilenet.load();
+    const container = document.getElementById("results");
+
+    for (let item of testImages) {
+
+        // Create image element
+        const img = new Image();
+        img.src = item.src;
+        img.crossOrigin = "anonymous";
+
+        await new Promise(resolve => img.onload = resolve);
+
+        // Classify image
+        const predictions = await model.classify(img);
+        const topPrediction = predictions[0].className.toLowerCase();
+
+        // Check correctness
+        const isCorrect = topPrediction.includes(item.label);
+
+        // Display result
+        const card = document.createElement("div");
+        card.className = "card";
+
+        card.innerHTML = `
+            <img src="${item.src}">
+            <div class="result">
+                <p><b>Expected:</b> ${item.label}</p>
+                <p><b>Predicted:</b> ${predictions[0].className}</p>
+                <p class="${isCorrect ? 'correct' : 'wrong'}">
+                    ${isCorrect ? 'Correct Prediction' : 'Incorrect Prediction'}
+                </p>
+            </div>
+        `;
+
+        container.appendChild(card);
+    }
+}
+
+testModel();
+</script>
+
+</body>
+</html>

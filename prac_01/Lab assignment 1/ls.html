@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Regression Example</title>
+
+    <!-- TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0"></script>
+</head>
+<body>
+
+<h2>Regression using TensorFlow.js</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Regression using TensorFlow.js</title>
+
+    <!-- Load TensorFlow.js (JavaScript ML library) -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0"></script>
+
+    <!-- Chart.js is used ONLY for plotting the graph -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            padding: 30px;
+            text-align: center;
+        }
+
+        canvas {
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            max-width: 750px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Training a Regression Model on Synthetic Data</h1>
+<p>Graph showing <b>Actual vs Predicted</b> values</p>
+
+<canvas id="myChart"></canvas>
+
+<script>
+/*
+ STEP 1: Generate synthetic data
+ --------------------------------
+ We create simple linear data using the formula:
+ y = 2x + 1
+ This is called "synthetic data" because it is artificially created.
+*/
+const xValues = [];
+const yValues = [];
+
+for (let i = 0; i < 50; i++) {
+    xValues.push(i);
+    yValues.push(2 * i + 1);
+}
+
+/*
+ STEP 2: Convert JavaScript arrays into tensors
+ ----------------------------------------------
+ Tensors are the data structures used by TensorFlow.js
+*/
+const xs = tf.tensor1d(xValues);
+const ys = tf.tensor1d(yValues);
+
+/*
+ STEP 3: Create a regression model
+ ---------------------------------
+ A Sequential model with one Dense layer
+ This represents a simple linear regression
+*/
+const model = tf.sequential();
+model.add(tf.layers.dense({
+    units: 1,          // one output value
+    inputShape: [1]    // one input feature (x)
+}));
+
+/*
+ STEP 4: Compile the model
+ -------------------------
+ Optimizer: SGD (Gradient Descent)
+ Loss: Mean Squared Error (used for regression)
+*/
+model.compile({
+    optimizer: tf.train.sgd(0.001),
+    loss: 'meanSquaredError'
+});
+
+/*
+ STEP 5: Train the model
+ -----------------------
+ The model learns the relationship between x and y
+*/
+async function trainModel() {
+    await model.fit(xs, ys, {
+        epochs: 200,
+        verbose: 0
+    });
+
+    /*
+     STEP 6: Make predictions using the trained model
+     -------------------------------------------------
+    */
+    const predictions = model.predict(xs).dataSync();
+
+    /*
+     STEP 7: Plot Actual vs Predicted values
+     ---------------------------------------
+     Blue points = Actual values
+     Red points  = Predicted values
+    */
+    new Chart(document.getElementById("myChart"), {
+        type: 'scatter',
+        data: {
+            datasets: [
+                {
+                    label: 'Actual Values',
+                    data: xValues.map((x, i) => ({ x: x, y: yValues[i] })),
+                    backgroundColor: 'blue'
+                },
+                {
+                    label: 'Predicted Values',
+                    data: xValues.map((x, i) => ({ x: x, y: predictions[i] })),
+                    backgroundColor: 'red'
+                }
+            ]
+        },
+        options: {
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Input (X)'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Output (Y)'
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Start training
+trainModel();
+</script>
+
+</body>
+</html>
+

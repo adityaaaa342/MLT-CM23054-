@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TensorFlow.js – Reshape vs Flatten</title>
+
+    <!-- TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .box {
+            background: #ffffff;
+            padding: 20px;
+            margin: 15px auto;
+            max-width: 600px;
+            border-radius: 8px;
+        }
+
+        pre {
+            background: #eeeeee;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>TensorFlow.js – Reshape vs Flatten</h1>
+
+<div class="box">
+    <h3>Original Tensor (2 × 3)</h3>
+    <pre id="original"></pre>
+</div>
+
+<div class="box">
+    <h3>Reshaped Tensor (3 × 2)</h3>
+    <pre id="reshaped"></pre>
+</div>
+
+<div class="box">
+    <h3>Flattened Tensor (1D)</h3>
+    <pre id="flattened"></pre>
+</div>
+
+<div class="box">
+    <h3>Explanation</h3>
+    <pre id="explanation"></pre>
+</div>
+
+<script>
+    // Original 2D tensor
+    const originalTensor = tf.tensor2d([
+        [1, 2, 3],
+        [4, 5, 6]
+    ]);
+
+    // Reshape: change dimensions but keep data
+    const reshapedTensor = originalTensor.reshape([3, 2]);
+
+    // Flatten: convert to 1D tensor
+    const flattenedTensor = originalTensor.flatten();
+
+    // Display original tensor
+    let originalText = "";
+    originalTensor.arraySync().forEach(row => {
+        originalText += row.join("  ") + "\n";
+    });
+    document.getElementById("original").textContent = originalText;
+
+    // Display reshaped tensor
+    let reshapedText = "";
+    reshapedTensor.arraySync().forEach(row => {
+        reshapedText += row.join("  ") + "\n";
+    });
+    document.getElementById("reshaped").textContent = reshapedText;
+
+    // Display flattened tensor
+    document.getElementById("flattened").textContent =
+        flattenedTensor.arraySync().join(", ");
+
+    // Explanation text
+    document.getElementById("explanation").textContent =
+`reshape():
+- Changes the shape of a tensor
+- Total number of elements must remain the same
+- Example: 2×3 → 3×2
+
+flatten():
+- Converts a tensor into a 1D tensor
+- Used before feeding data into Dense layers
+- Example: 2×3 → 1×6`;
+</script>
+
+</body>
+</html>

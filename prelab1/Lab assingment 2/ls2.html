@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TensorFlow.js – Vector Operations</title>
+
+    <!-- TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .box {
+            background: #ffffff;
+            padding: 20px;
+            margin: 15px auto;
+            max-width: 500px;
+            border-radius: 8px;
+        }
+
+        pre {
+            background: #eeeeee;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>TensorFlow.js – Element-wise Vector Operations</h1>
+
+<div class="box">
+    <h3>Vector A</h3>
+    <pre id="vectorA"></pre>
+</div>
+
+<div class="box">
+    <h3>Vector B</h3>
+    <pre id="vectorB"></pre>
+</div>
+
+<div class="box">
+    <h3>Element-wise Addition (A + B)</h3>
+    <pre id="addResult"></pre>
+</div>
+
+<div class="box">
+    <h3>Element-wise Multiplication (A × B)</h3>
+    <pre id="mulResult"></pre>
+</div>
+
+<script>
+    // Create two vectors
+    const vectorA = tf.tensor1d([1, 2, 3, 4]);
+    const vectorB = tf.tensor1d([5, 6, 7, 8]);
+
+    // Element-wise operations
+    const addition = tf.add(vectorA, vectorB);
+    const multiplication = tf.mul(vectorA, vectorB);
+
+    // Display results on webpage
+    document.getElementById("vectorA").textContent =
+        vectorA.arraySync().join(", ");
+
+    document.getElementById("vectorB").textContent =
+        vectorB.arraySync().join(", ");
+
+    document.getElementById("addResult").textContent =
+        addition.arraySync().join(", ");
+
+    document.getElementById("mulResult").textContent =
+        multiplication.arraySync().join(", ");
+</script>
+
+</body>
+</html>

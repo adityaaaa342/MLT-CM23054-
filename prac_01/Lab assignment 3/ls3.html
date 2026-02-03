@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediction on Unseen Data</title>
+
+    <!-- TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            padding: 20px;
+        }
+        .box {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background: #eee;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Prediction for Unseen Inputs</h2>
+
+<div class="box">
+    <table>
+        <thead>
+            <tr>
+                <th>Unseen Input (x)</th>
+                <th>Expected Output (2x + 1)</th>
+                <th>Predicted Output (Model)</th>
+            </tr>
+        </thead>
+        <tbody id="resultTable">
+        </tbody>
+    </table>
+</div>
+
+<script>
+// STEP 1: Training data (known data)
+let trainX = [];
+let trainY = [];
+
+for (let i = 0; i < 20; i++) {
+    trainX.push(i);
+    trainY.push(2 * i + 1);
+}
+
+let xTrainTensor = tf.tensor1d(trainX);
+let yTrainTensor = tf.tensor1d(trainY);
+
+// STEP 2: Create regression model
+let model = tf.sequential();
+model.add(tf.layers.dense({ units: 1, inputShape: [1] }));
+
+model.compile({
+    optimizer: tf.train.sgd(0.01),
+    loss: 'meanSquaredError'
+});
+
+// STEP 3: Train the model
+async function trainAndPredict() {
+    await model.fit(xTrainTensor, yTrainTensor, {
+        epochs: 100,
+        verbose: 0
+    });
+
+    // STEP 4: Unseen input values
+    let unseenX = [25, 30, 35, 40];
+    let unseenTensor = tf.tensor1d(unseenX);
+
+    // STEP 5: Model prediction
+    let predictions = model.predict(unseenTensor).dataSync();
+
+    // STEP 6: Display comparison
+    let table = document.getElementById("resultTable");
+
+    unseenX.forEach((x, i) => {
+        let expected = 2 * x + 1;
+        let predicted = predictions[i];
+
+        let row = `
+            <tr>
+                <td>${x}</td>
+                <td>${expected}</td>
+                <td>${predicted.toFixed(2)}</td>
+            </tr>
+        `;
+        table.innerHTML += row;
+    });
+}
+
+// Run experiment
+trainAndPredict();
+</script>
+
+</body>
+</html>
