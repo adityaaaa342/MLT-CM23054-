@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis App</title>
+    <!-- Load TensorFlow.js from CDN -->
+    <!-- CDN = Content Delivery Network (files hosted online) -->
+    <!-- Why CDN? No installation needed, faster loading, always updated -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-brain"></i> Sentiment Analyzer</h1>
+            <p class="subtitle">AI-powered emotion detection from text</p>
+        </header>
+        
+        <div class="app-card">
+            <div class="info-section">
+                <h2><i class="fas fa-lightbulb"></i> How it works?</h2>
+                <ol>
+                    <li>Type any text in the box below</li>
+                    <li>Click "Analyze Sentiment" button</li>
+                    <li>AI model analyzes the emotion</li>
+                    <li>Get instant Positive/Negative result</li>
+                </ol>
+            </div>
+            
+            <div class="input-section">
+                <h2><i class="fas fa-keyboard"></i> Enter Your Text</h2>
+                <textarea 
+                    id="textInput" 
+                    placeholder="Type your text here... Example: 'I love this amazing product!' or 'This is terrible service.'"
+                    rows="5"></textarea>
+                
+                <button id="analyzeBtn" onclick="analyzeSentiment()">
+                    <i class="fas fa-magic"></i> Analyze Sentiment
+                </button>
+                
+                <div class="tech-used">
+                    <span class="tech-tag">TensorFlow.js</span>
+                    <span class="tech-tag">FastAPI</span>
+                    <span class="tech-tag">AI Model</span>
+                </div>
+            </div>
+            
+            <div class="result-section">
+                <h2><i class="fas fa-chart-bar"></i> Analysis Result</h2>
+                <div id="resultContainer">
+                    <div class="placeholder">
+                        <i class="fas fa-arrow-up"></i>
+                        <p>Your sentiment result will appear here</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="examples">
+                <h3><i class="fas fa-bolt"></i> Try These Examples:</h3>
+                <div class="example-buttons">
+                    <button class="example-btn" onclick="loadExample('This movie was absolutely fantastic! I loved every moment of it.')">
+                        <i class="fas fa-thumbs-up"></i> Positive Example
+                    </button>
+                    <button class="example-btn" onclick="loadExample('The service was terrible and the food was cold. Very disappointing.')">
+                        <i class="fas fa-thumbs-down"></i> Negative Example
+                    </button>
+                    <button class="example-btn" onclick="loadExample('The product is okay but could be better. Not sure if I like it.')">
+                        <i class="fas fa-meh"></i> Neutral Example
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Sentiment Analysis Project | Made with TensorFlow.js & FastAPI</p>
+            <p class="hint">For college submission - Easy to explain in viva!</p>
+        </footer>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
