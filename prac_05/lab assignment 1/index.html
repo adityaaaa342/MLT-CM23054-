@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Classifier</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Load TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container glass-panel">
+        <h1>Sentiment Classifier</h1>
+        <p class="subtitle">Train a custom model on positive/negative sentences using TensorFlow.js</p>
+
+        <div class="card train-section">
+            <h2>1. Train Model</h2>
+            <div class="stats">
+                <div class="stat-box">
+                    <span class="stat-label">Epochs</span>
+                    <span class="stat-value" id="epoch-val">0 / 50</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Loss</span>
+                    <span class="stat-value" id="loss-val">-</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Accuracy</span>
+                    <span class="stat-value" id="acc-val">-</span>
+                </div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            
+            <button id="train-btn" class="btn primary-btn">Start Training</button>
+            <p id="train-status" class="status-msg text-muted">Ready to train.</p>
+        </div>
+
+        <div class="card test-section disabled" id="test-section">
+            <h2>2. Test Model</h2>
+            <div class="input-group">
+                <input type="text" id="test-input" placeholder="Enter a sentence (e.g. 'This is amazing')" autocomplete="off">
+                <button id="test-btn" class="btn secondary-btn">Predict</button>
+            </div>
+            
+            <div class="result-box" id="result-box">
+                <div class="sentiment-icon" id="sentiment-icon">❔</div>
+                <div class="sentiment-text">
+                    <h3 id="prediction-label">Waiting for input...</h3>
+                    <p id="prediction-confidence" class="text-muted">Confidence: -</p>
+                </div>
+            </div>
+            
+            <div class="bar-chart">
+                <div class="bar-fill negative-bar" id="negative-bar" style="width: 50%;"></div>
+                <div class="bar-fill positive-bar" id="positive-bar" style="width: 50%;"></div>
+            </div>
+            <div class="bar-labels">
+                <span>Negative (0)</span>
+                <span>Positive (1)</span>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dense vs RNN Classification</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Load TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container glass-panel">
+        <header>
+            <h1>Dense vs RNN Comparison</h1>
+            <p class="subtitle">Observe how a simple Dense Network compares to a Simple RNN for sentiment tasks.</p>
+        </header>
+
+        <div class="controls-card">
+            <button id="train-both-btn" class="btn primary-btn btn-large">Train Both Models</button>
+            <p id="global-status" class="status-msg text-muted">Ready. Press button to start simultaneous training.</p>
+        </div>
+
+        <div class="split-board">
+            <!-- Left Side: Dense Model -->
+            <div class="model-board model-dense">
+                <div class="board-header">
+                    <h2>🧠 Dense Network</h2>
+                    <span class="arch-badge">Embedding -> Flatten -> Dense</span>
+                </div>
+                
+                <div class="metrics-grid">
+                    <div class="metric">
+                        <label>Epoch</label>
+                        <span id="dense-epoch">0/100</span>
+                    </div>
+                    <div class="metric">
+                        <label>Accuracy</label>
+                        <span id="dense-acc">--</span>
+                    </div>
+                    <div class="metric">
+                        <label>Time</label>
+                        <span id="dense-time">0ms</span>
+                    </div>
+                </div>
+                
+                <div class="progress-wrap">
+                    <div class="progress-bar dense-bar" id="dense-progress"></div>
+                </div>
+            </div>
+
+            <!-- Right Side: RNN Model -->
+            <div class="model-board model-rnn">
+                <div class="board-header">
+                    <h2>🔄 Simple RNN</h2>
+                    <span class="arch-badge">Embedding -> SimpleRNN -> Dense</span>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric">
+                        <label>Epoch</label>
+                        <span id="rnn-epoch">0/100</span>
+                    </div>
+                    <div class="metric">
+                        <label>Accuracy</label>
+                        <span id="rnn-acc">--</span>
+                    </div>
+                    <div class="metric">
+                        <label>Time</label>
+                        <span id="rnn-time">0ms</span>
+                    </div>
+                </div>
+
+                <div class="progress-wrap">
+                    <div class="progress-bar rnn-bar" id="rnn-progress"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testing Interface (Unlocks after training) -->
+        <div class="test-card disabled" id="test-section">
+            <h2>Test Both Models</h2>
+            <div class="input-row">
+                <input type="text" id="test-input" placeholder="e.g. 'not bad at all, actually good'" autocomplete="off">
+                <button id="test-btn" class="btn secondary-btn">Predict Sequence</button>
+            </div>
+            
+            <div class="split-results hidden" id="split-results">
+                <div class="result-box dense-result text-center">
+                    <h4>Dense Prediction</h4>
+                    <div id="dense-emoji" class="result-emoji">🤔</div>
+                    <p id="dense-pred-lbl" class="font-bold">Neutral</p>
+                    <span id="dense-conf" class="text-muted small">0.00</span>
+                </div>
+                <div class="result-box rnn-result text-center">
+                    <h4>RNN Prediction</h4>
+                    <div id="rnn-emoji" class="result-emoji">🤔</div>
+                    <p id="rnn-pred-lbl" class="font-bold">Neutral</p>
+                    <span id="rnn-conf" class="text-muted small">0.00</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

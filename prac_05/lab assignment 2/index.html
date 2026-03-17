@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confidence Score Interpretation</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Load TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="loading-overlay" class="overlay">
+        <div class="loader">
+            <div class="spinner"></div>
+            <h2>Initializing Model</h2>
+            <p>Training background model on sentiment dataset...</p>
+        </div>
+    </div>
+
+    <div class="container glass-panel">
+        <header>
+            <h1>Sentiment Confidence Interpreter</h1>
+            <p class="subtitle">Test custom sentences and analyze exactly why the model is confident.</p>
+        </header>
+
+        <div class="input-card">
+            <h2>Enter a Sentence</h2>
+            <div class="input-wrapper">
+                <textarea id="sentence-input" rows="3" placeholder="e.g. 'I absolutely love this amazing product, but the delivery was slightly annoying.'"></textarea>
+                <button id="analyze-btn" class="btn primary-btn">Analyze Sentiment</button>
+            </div>
+        </div>
+
+        <div id="results-dashboard" class="dashboard hidden">
+            <div class="grid-layout">
+                <!-- Main Prediction -->
+                <div class="card result-card">
+                    <h3>Overall Prediction</h3>
+                    <div class="prediction-display">
+                        <div id="sentiment-emoji" class="emoji">🤔</div>
+                        <h2 id="sentiment-label">Neutral</h2>
+                        <span id="confidence-badge" class="badge">--% Confidence</span>
+                    </div>
+                    
+                    <div class="gauge-container">
+                        <div class="gauge-bar">
+                            <div class="gauge-fill" id="gauge-fill"></div>
+                            <div class="gauge-marker"></div>
+                        </div>
+                        <div class="gauge-labels">
+                            <span>0 (Negative)</span>
+                            <span>0.5 (Uncertain)</span>
+                            <span>1 (Positive)</span>
+                        </div>
+                        <p class="interpret-text" id="interpret-text">The model strongly believes this is positive.</p>
+                    </div>
+                </div>
+
+                <!-- Bag of Words Analysis -->
+                <div class="card analysis-card">
+                    <h3>Vocabulary Analysis (BoW)</h3>
+                    <p class="text-muted small">How the model interprets the words in your sentence based on its vocabulary.</p>
+                    
+                    <div class="tokens-container" id="tokens-container">
+                        <!-- Tokens injected dynamically -->
+                        <span class="token text-muted">Waiting for input...</span>
+                    </div>
+                    
+                    <div class="legend">
+                        <div class="legend-item"><span class="dot known"></span> Known Vocab Word</div>
+                        <div class="legend-item"><span class="dot unknown"></span> Unknown (OOV)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

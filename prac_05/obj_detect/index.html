@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Webcam Object Detection</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- TensorFlow.js and MobileNet -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.21.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.0/dist/mobilenet.min.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-background"></div>
+    
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <i data-lucide="scan" class="logo-icon"></i>
+                <div class="titles">
+                    <h1>Real-Time Classifier</h1>
+                    <p>Lab Assignment 4: Live Object Detection using MobileNet</p>
+                </div>
+            </div>
+            <div class="status-indicator">
+                <span id="model-status" class="status-text">Loading Model...</span>
+                <div id="status-dot" class="status-dot loading"></div>
+            </div>
+        </header>
+
+        <!-- Main Workspace -->
+        <main class="workspace">
+            <!-- Left: Video Feed -->
+            <section class="video-section card glass">
+                <div class="video-wrapper">
+                    <video id="webcam" autoplay playsinline muted></video>
+                    
+                    <div id="video-overlay" class="overlay hidden">
+                        <i data-lucide="camera-off" class="overlay-icon"></i>
+                        <p>Camera is off</p>
+                    </div>
+
+                    <div id="loading-overlay" class="overlay">
+                        <i data-lucide="loader-2" class="overlay-icon spinner"></i>
+                        <p>Initializing AI Engine...</p>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button id="toggle-camera-btn" class="primary-btn" disabled>
+                        <i data-lucide="video"></i>
+                        <span id="btn-text">Start Camera</span>
+                    </button>
+                    
+                    <div class="fps-counter hidden" id="fps-counter">
+                        <span class="fps-value" id="fps-value">0</span>
+                        <span class="fps-label">FPS</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right: Live Predictions -->
+            <section class="results-section card glass">
+                <div class="results-header">
+                    <h2>Live Detection</h2>
+                    <i data-lucide="activity" class="pulse-icon"></i>
+                </div>
+                
+                <div class="predictions-container">
+                    <p class="placeholder-text" id="predictions-placeholder">
+                        Start the camera to see real-time object classification.
+                    </p>
+                    <ul id="predictions-list" class="predictions-list hidden">
+                        <!-- Items injected by JS -->
+                    </ul>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
