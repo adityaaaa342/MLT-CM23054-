@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Pose Detection | PoseNet</title>
+    <!-- Google Fonts for typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Load TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <!-- Load PoseNet -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/posenet"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <span class="icon">🕺</span>
+                <h1>Pose<span class="highlight">Net</span> Vision</h1>
+            </div>
+            <p class="subtitle">Real-time Human Body Pose Estimation</p>
+        </header>
+
+        <main>
+            <div class="vision-card">
+                <div class="video-wrapper">
+                    <!-- Video feed -->
+                    <video id="video" playsinline autoplay muted></video>
+                    <!-- Canvas for drawing skeletons -->
+                    <canvas id="canvas"></canvas>
+                    
+                    <!-- Posture Result Label -->
+                    <div class="pose-result-overlay" id="pose-result-overlay" style="display: none;">
+                        <div class="pose-dot"></div>
+                        <span id="pose-label">Detecting...</span>
+                    </div>
+                    
+                    <!-- Loading UI overlay -->
+                    <div class="overlay-ui">
+                        <div class="status-indicator" id="status-indicator">
+                            <div class="spinner"></div>
+                            <span id="status">Waking up AI...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>Powered by TensorFlow.js & PoseNet</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Comparison | Lab 3</title>
+    
+    <!-- Load p5.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+    <!-- Load ml5.js -->
+    <script src="https://unpkg.com/ml5@1/dist/ml5.min.js"></script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Pose Detection Accuracy Analysis</h1>
+            <p>Lab Assignment 3 - Single-Pose vs Multi-Pose Evaluation</p>
+        </header>
+        
+        <main>
+            <div class="controls">
+                <button id="btn-single" class="active" onclick="setModel('single')">Single-Pose Model</button>
+                <button id="btn-multi" onclick="setModel('multi')">Multi-Pose Model</button>
+            </div>
+            
+            <div id="stats-container">
+                <div class="stat-box">
+                    <h3>Avg Confidence</h3>
+                    <div id="avg-confidence">0.0%</div>
+                </div>
+                <div class="stat-box">
+                    <h3>Persons Detected</h3>
+                    <div id="person-count">0</div>
+                </div>
+            </div>
+            
+            <div id="canvas-container">
+                <!-- p5.js canvas will be injected here -->
+            </div>
+            <div id="status">Loading AI Models (This may take a moment)...</div>
+        </main>
+        
+        <footer>
+            <p>Powered by ml5.js and p5.js</p>
+        </footer>
+    </div>
+
+    <!-- Main Logic -->
+    <script src="script.js"></script>
+</body>
+</html>

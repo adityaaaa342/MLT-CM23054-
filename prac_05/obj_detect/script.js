@@ -113,33 +113,44 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // --- 4. UI Updates ---
     function updatePredictionsUI(predictions) {
-        predictionsList.innerHTML = ''; // Clear prev
-        
         // Take top 3
         const topPredictions = predictions.slice(0, 3);
         
+        // Ensure we have exactly the right number of li elements
+        while (predictionsList.children.length < topPredictions.length) {
+            const index = predictionsList.children.length;
+            const li = document.createElement('li');
+            li.className = 'prediction-item';
+            
+            // Slight delay in animation based on rank, only applies when element is first created
+            li.style.animationDelay = `${index * 0.1}s`;
+            
+            li.innerHTML = `
+                <div class="prediction-info">
+                    <span class="prediction-name"></span>
+                    <span class="prediction-score"></span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" style="width: 0%"></div>
+                </div>
+            `;
+            predictionsList.appendChild(li);
+        }
+        while (predictionsList.children.length > topPredictions.length) {
+            predictionsList.removeChild(predictionsList.lastChild);
+        }
+        
+        // Update values
         topPredictions.forEach((pred, index) => {
             const probability = Math.round(pred.probability * 100);
             
             // Format class name: separate comma separated terms and capitalize
             const classNameShort = pred.className.split(',')[0].trim();
             
-            const li = document.createElement('li');
-            li.className = 'prediction-item';
-            
-            // Slight delay in animation based on rank
-            li.style.animationDelay = `${index * 0.1}s`;
-            
-            li.innerHTML = `
-                <div class="prediction-info">
-                    <span class="prediction-name">${classNameShort}</span>
-                    <span class="prediction-score">${probability}%</span>
-                </div>
-                <div class="progress-bar-bg">
-                    <div class="progress-bar-fill" style="width: ${probability}%"></div>
-                </div>
-            `;
-            predictionsList.appendChild(li);
+            const li = predictionsList.children[index];
+            li.querySelector('.prediction-name').textContent = classNameShort;
+            li.querySelector('.prediction-score').textContent = `${probability}%`;
+            li.querySelector('.progress-bar-fill').style.width = `${probability}%`;
         });
     }
 

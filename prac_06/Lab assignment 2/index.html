@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Squat Counter | Lab 2</title>
+    
+    <!-- Load p5.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+    <!-- Load ml5.js -->
+    <script src="https://unpkg.com/ml5@1/dist/ml5.min.js"></script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AI Squat Counter</h1>
+            <p>Lab Assignment 2 - Exercise Repetition Tracking</p>
+        </header>
+        
+        <main>
+            <div id="stats-container">
+                <div class="stat-box">
+                    <h3>Squat Count</h3>
+                    <div id="squat-count">0</div>
+                </div>
+                <div class="stat-box">
+                    <h3>Knee Angle</h3>
+                    <div id="knee-angle">-°</div>
+                </div>
+            </div>
+            <div id="canvas-container">
+                <!-- p5.js canvas will be injected here -->
+            </div>
+            <div id="status">Loading AI Model...</div>
+        </main>
+        
+        <footer>
+            <p>Powered by ml5.js and p5.js</p>
+        </footer>
+    </div>
+
+    <!-- Main Logic -->
+    <script src="script.js"></script>
+</body>
+</html>
