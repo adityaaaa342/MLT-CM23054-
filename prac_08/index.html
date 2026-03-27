@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer Learning: Fruit Classifier</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Load TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <!-- Load MobileNet module -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet"></script>
+    <!-- Load KNN Classifier -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/knn-classifier"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Fruit Classifier (Transfer Learning)</h1>
+            <p>Retrain MobileNet to recognize custom categories using your webcam!</p>
+        </header>
+
+        <main>
+            <div class="video-container">
+                <video id="webcam" autoplay playsinline width="400" height="400"></video>
+                <div id="loadingOverlay" class="overlay">Loading Models...</div>
+            </div>
+
+            <div class="controls-container">
+                <div class="status-panel">
+                    <h2>Live Prediction:</h2>
+                    <div id="predictionResult" class="result">Waiting for training data...</div>
+                </div>
+
+                <h3>Train Categories</h3>
+                <p class="instruction">Hold up a fruit (or object) to the camera and click the corresponding button multiple times to add training examples.</p>
+                
+                <div class="buttons">
+                    <div class="class-control">
+                        <button id="class0Btn" class="train-btn" data-class="0">Train "Apple"</button>
+                        <span class="count" id="count0">0 examples</span>
+                    </div>
+                    <div class="class-control">
+                        <button id="class1Btn" class="train-btn" data-class="1">Train "Banana"</button>
+                        <span class="count" id="count1">0 examples</span>
+                    </div>
+                    <div class="class-control">
+                        <button id="class2Btn" class="train-btn" data-class="2">Train "Orange"</button>
+                        <span class="count" id="count2">0 examples</span>
+                    </div>
+                </div>
+                
+                <button id="resetBtn" class="reset-btn">Reset Classifier</button>
+            </div>
+        </main>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

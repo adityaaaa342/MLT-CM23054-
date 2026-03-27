@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Assignment 3</title>
+    <style>
+        body { font-family: sans-serif; padding: 2rem; max-width: 600px; margin: auto; }
+        button { padding: 10px 15px; background: #8b5cf6; color: #fff; border: none; cursor: pointer; border-radius: 4px; margin-right: 10px; margin-bottom: 10px; }
+        button:disabled { background: #94a3b8; cursor: not-allowed; }
+        input[type="file"] { margin: 15px 0; display: block; }
+        .section { margin-bottom: 30px; border-bottom: 1px solid #e2e8f0; padding-bottom: 20px; }
+        .status { margin-top: 15px; padding: 10px; background: #f1f5f9; border-left: 4px solid #cbd5e1; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+</head>
+<body>
+    <h1>Lab Assignment 3</h1>
+    <p>Export the model to files and re-import it; test predictions again.</p>
+    
+    <div class="section">
+        <h2>1. Train & Export Model</h2>
+        <button id="trainExportBtn">Train and Download Model Files</button>
+        <div id="exportStatus" class="status">Waiting to train...</div>
+    </div>
+
+    <div class="section">
+        <h2>2. Import Model & Predict</h2>
+        <p>Select both the <strong>.json</strong> and <strong>.bin</strong> files that were just downloaded:</p>
+        <input type="file" id="modelFiles" multiple accept=".json,.bin">
+        <button id="importPredictBtn" disabled>Import and Predict</button>
+        <div id="importStatus" class="status">Waiting for files...</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

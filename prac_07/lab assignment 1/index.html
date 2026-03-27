@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Assignment 1</title>
+    <style>
+        body { font-family: sans-serif; padding: 2rem; max-width: 600px; margin: auto; }
+        button { padding: 10px 15px; background: #2563eb; color: #fff; border: none; cursor: pointer; border-radius: 4px; }
+        button:disabled { background: #94a3b8; cursor: not-allowed; }
+        #status { margin-top: 15px; padding: 10px; background: #f1f5f9; border-left: 4px solid #cbd5e1; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+</head>
+<body>
+    <h1>Lab Assignment 1</h1>
+    <p>Train a small model and save it to LocalStorage.</p>
+    
+    <button id="trainBtn">Train and Save Model</button>
+    
+    <div id="status">Ready</div>
+
+    <script src="script.js"></script>
+</body>
+</html>

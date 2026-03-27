@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Deployment in Browser</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Load TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Model Deployment in Browser</h1>
+        <p>Train a simple model, save it locally, reload it, and run predictions.</p>
+
+        <div class="card">
+            <h2>1. Train & Save Model</h2>
+            <p>We are training a model to learn the linear relationship <strong>y = 2x - 1</strong>.</p>
+            <button id="trainBtn">Train and Save Model</button>
+            <p id="trainStatus" class="status">Waiting for action...</p>
+        </div>
+
+        <div class="card">
+            <h2>2. Load Model & Predict</h2>
+            <button id="loadBtn" disabled>Load Model from Local Storage</button>
+            <div class="input-group">
+                <input type="number" id="predictInput" placeholder="Enter a number (x)" step="any" disabled>
+                <button id="predictBtn" disabled>Predict (y)</button>
+            </div>
+            <p id="predictStatus" class="status">Model not loaded.</p>
+            <div id="predictionResult"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

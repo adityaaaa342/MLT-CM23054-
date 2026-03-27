@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Assignment 3: Incremental Learning</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/knn-classifier"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Lab Assignment 3: Incremental Learning</h1>
+        <p>Start with 3 categories, then add new categories dynamically to analyze how accuracy and the confusion matrix change.</p>
+        
+        <div class="main-content">
+            <div class="left-col">
+                <video id="webcam" autoplay playsinline width="400" height="400"></video>
+                <div id="status">Loading models...</div>
+                
+                <div class="panel add-class-panel">
+                    <h3>Add New Category</h3>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="newClassName" placeholder="e.g., Mango, Cup, Pen">
+                        <button id="addCategoryBtn">Add</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="right-col">
+                <div class="panel">
+                    <h2>1. Train Data</h2>
+                    <div id="trainButtonsContainer">
+                        <!-- Dynamically populated -->
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h2>2. Validation Data</h2>
+                    <div id="valButtonsContainer">
+                        <!-- Dynamically populated -->
+                    </div>
+                </div>
+                
+                <button id="evalBtn">Run Evaluation & Generate Matrix</button>
+            </div>
+        </div>
+        
+        <div id="results" class="results-section" style="display: none;">
+            <h2>Evaluation Results</h2>
+            <p id="accuracyResult" class="accuracy">Accuracy: --%</p>
+            <table id="confusionMatrix">
+                <thead id="matrixHead"></thead>
+                <tbody id="matrixBody"></tbody>
+            </table>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

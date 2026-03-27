@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Assignment 1: 3 Categories</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/knn-classifier"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Lab Assignment 1: Custom Dataset (3 Categories)</h1>
+        <p>Retrain MobileNet with 3 custom categories (e.g., Apple, Banana, Orange).</p>
+        
+        <div class="main-content">
+            <div class="video-wrapper">
+                <video id="webcam" autoplay playsinline width="400" height="400"></video>
+            </div>
+            
+            <div class="controls">
+                <div id="predictionResult" class="result-box">Waiting for data...</div>
+                
+                <div class="class-buttons">
+                    <button id="btn0" class="train-btn" data-class="0">Train "Apple" <span id="count0">(0)</span></button>
+                    <button id="btn1" class="train-btn" data-class="1">Train "Banana" <span id="count1">(0)</span></button>
+                    <button id="btn2" class="train-btn" data-class="2">Train "Orange" <span id="count2">(0)</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
