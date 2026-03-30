@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligent Activity Monitor</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/posenet"></script>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <h1>VisionTrack <span>AI</span></h1>
+            </div>
+            <div class="status-indicator">
+                <span class="pulse"></span>
+                <span id="system-status">System Initializing</span>
+            </div>
+        </header>
+
+        <main class="dashboard">
+            <section class="video-section">
+                <div class="video-wrapper">
+                    <video id="webcam" autoplay playsinline width="640" height="480"></video>
+                    <canvas id="output" width="640" height="480"></canvas>
+                    <div id="loading" class="loading-overlay">
+                        <div class="spinner"></div>
+                        <p>Loading TensorFlow Model...</p>
+                    </div>
+                </div>
+                <div class="controls">
+                    <button id="toggle-cam" class="btn primary">Start Camera</button>
+                    <button id="toggle-monitor" class="btn secondary" disabled>Start Monitoring</button>
+                </div>
+            </section>
+
+            <aside class="sidebar">
+                <div class="card insights-card">
+                    <h2>Live Insights</h2>
+                    <div class="metrics">
+                        <div class="metric">
+                            <span class="label">Detected State</span>
+                            <span class="value" id="current-state">Unknown</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Confidence</span>
+                            <span class="value" id="confidence-score">0%</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Persons Detected</span>
+                            <span class="value" id="person-count">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card alerts-card">
+                    <h2>Recent Alerts</h2>
+                    <ul id="alert-list" class="alert-list">
+                        <!-- Alerts will be injected here -->
+                    </ul>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
